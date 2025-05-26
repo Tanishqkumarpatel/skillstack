@@ -1,6 +1,6 @@
 type CardProps = {
     title:string;
-    image:string
+    image:string;
 };
 
 function Card({title, image}: CardProps) {
