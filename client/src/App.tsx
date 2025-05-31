@@ -2,14 +2,13 @@ import Navbar from "./components/Navbar"
 import Courses from "./components/Courses"
 
 import './index.css'
+import Header from "./components/Header"
 
 function App() {
 	return(
 		<div>
       		<Navbar />
-      		<div className="p-4">
-        		<h2 className="text-2xl font-semibold">Welcome to SkillStack</h2>
-      		</div>
+			<Header />
 			<Courses />
     	</div>
 	);
