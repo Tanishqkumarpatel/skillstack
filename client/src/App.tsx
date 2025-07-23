@@ -2,7 +2,7 @@ import './index.css';
 import Browse from "./pages/Browse";
 import Home from './pages/Home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './pages/LogIn';
+import Login from './pages/Login';
 import Navbar from './components/Navbar';
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path = "/Browse" element={<Browse />} />
-				<Route path = "/LogIn" element={<Login />} /> 
+				<Route path = "/Login" element={<Login />} /> 
 			</Routes>
 		</Router>	
 	);
