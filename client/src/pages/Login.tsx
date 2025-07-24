@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -11,13 +12,9 @@ function Login() {
     console.log("Logging in...");
   };
 
-  const handleForgotPassword = () => {
-    console.log("Redirecting to forgot password...");
-  };
-
-  const handleSignUp = () => {
-    console.log("Redirecting to sign up...");
-  };
+  // const handleForgotPassword = () => {
+  //   console.log("Redirecting to forgot password...");
+  // };
 
   return (
     <div className="flex flex-col space-y-4 p-4 max-w-sm mx-auto">
@@ -62,18 +59,20 @@ function Login() {
       </div>
 
       <div className="flex justify-between space-x-4">
-        <button
-          onClick={handleForgotPassword}
-          className="h-8 w-full border-2 border-black bg-red-400 hover:bg-red-800 rounded text-white"
+        <Link
+          // onClick={handleForgotPassword}
+          to="/Forgot"
+          className="h-8 w-full border-2 border-black bg-red-400 hover:bg-red-800 rounded text-white text-center"
         >
           Forgot?
-        </button>
-        <button
-          onClick={handleSignUp}
-          className="h-8 w-full border-2 border-black bg-pink-400 hover:bg-pink-800 rounded text-white"
+        </Link>
+        <Link
+          // onClick={handleSignUp}
+          to="/Signup"
+          className="h-8 w-full border-2 border-black bg-pink-400 hover:bg-pink-800 rounded text-white text-center"
         >
           Sign Up
-        </button>
+        </Link>
       </div>
     </div>
   );
