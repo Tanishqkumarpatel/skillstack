@@ -4,12 +4,39 @@ import { Eye, EyeOff } from "lucide-react";
 function Signup() {
 
     const [showPassword, setShowPassword] = useState(false);
+
+    const [username, setUserName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
     const togglePassword = () => {
         setShowPassword((prev) => !prev);
     };
 
-    const handleSignUp = () => {
-        console.log("Signing up ...");
+    const handleSignUp = async () => {
+        const userData = { username, email, password};
+        try {
+            const response = await fetch(
+                "http://localhost:5000/auth/register", 
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(userData),
+                }
+            );
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert("Registration Success: " + data.message);
+                // You can reset form, show success message, redirect, etc.
+            } else {
+               alert("Registration failed: " + (data.error || data.message));
+            }
+            
+        } catch (error) {
+            console.error('Network Error :', error)
+        }
     };
 
     return(
@@ -24,6 +51,8 @@ function Signup() {
                     id="UserName"
                     className="border-2 rounded border-rose-500 px-2 py-1"
                     placeholder="Enter a UserName eg: John"
+                    value={username}
+                    onChange={(e) => setUserName(e.target.value)}
                 />
             </div>
 
@@ -36,6 +65,8 @@ function Signup() {
                 id="email"
                 className="border-2 border-rose-500 px-2 py-1 rounded"
                 placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 />
             </div>
 
@@ -48,6 +79,8 @@ function Signup() {
                 id="password"
                 className="border-2 border-rose-500 p-2 rounded pr-8"
                 placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 />
                 <button
                 type="button"
