@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
-
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
 
     const [username, setUserName] = useState('');
@@ -30,6 +31,7 @@ function Signup() {
             if (response.ok) {
                 alert("Registration Success: " + data.message);
                 // You can reset form, show success message, redirect, etc.
+                navigate("/Login");
             } else {
                alert("Registration failed: " + (data.error || data.message));
             }

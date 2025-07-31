@@ -1,15 +1,42 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
   };
+  const navigate = useNavigate();
+  const handleLogin = async () => {
+    const userData = {email, password};
+    try {
+      if (!email.trim() || !password.trim()) {
+        alert("Fields cannot be empty.");
+        return;
+      }
+      const response = await fetch(
+        "http://localhost:5000/auth/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userData),
+        }
+      );
 
-  const handleLogin = () => {
-    console.log("Logging in...");
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Logging In: " + data.message);
+        navigate("/Browse");
+      } else {
+        alert("Logging Failed: " + (data.error || data.message));
+      }
+    } catch (error) {
+      console.error('Network Error: ', error);
+    }
   };
 
   // const handleForgotPassword = () => {
@@ -27,6 +54,8 @@ function Login() {
           id="email"
           className="border-2 border-rose-500 px-2 py-1 rounded"
           placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
 
@@ -39,6 +68,8 @@ function Login() {
           id="password"
           className="border-2 border-rose-500 p-2 rounded pr-8"
           placeholder="Enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button
           type="button"
